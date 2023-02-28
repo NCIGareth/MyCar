@@ -36,6 +36,7 @@ const AuthDetails = () => {
         </>
       ) : (
         <p>Signed Out</p>
+        
       )}
     </div>
   );

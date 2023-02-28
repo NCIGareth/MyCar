@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Navbar.scss'
+import AuthDetails from "./Auth";
+
 
 export const Navbar = () => {
   return (
@@ -21,6 +23,9 @@ export const Navbar = () => {
                 </li>
                 <li>
                     <Link to='/AddService'>Service</Link>
+                </li>
+                <li>
+                    <AuthDetails/>
                 </li>
             </ul>
             </nav>
