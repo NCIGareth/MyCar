@@ -1,0 +1,29 @@
+form {
+    padding-top: 10px;
+    justify-content: center;
+    display: grid;
+    color: white;
+
+    label{
+    margin-left: 1rem;
+    color:white ;
+    font-weight: bolder;
+    display:grid;
+    padding-bottom: 5px;
+    
+    }
+
+    input {
+        padding: 12px 30px;
+
+    }
+
+    button {
+        margin-top: 1rem;
+        padding: 10px;
+        cursor: pointer;
+
+    }
+
+    
+}
