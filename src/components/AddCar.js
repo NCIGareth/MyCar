@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { firestore } from "./firebaseConfig";
+import { auth, firestore } from "./firebaseConfig";
 import Navbar from "./Navbar";
 import '../styles/AddCar.scss'
 
@@ -18,6 +18,7 @@ function AddCar() {
     event.preventDefault();
     try {
       carRef.add({
+        user: auth.currentUser.uid,
         make,
         model,
         year,
