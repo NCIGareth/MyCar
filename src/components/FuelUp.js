@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { firestore } from "./firebaseConfig";
 import Navbar from "./Navbar";
+import CarDropdown from "./CarDropdown";
 import '../styles/FuelUp.scss';
 
 
@@ -8,18 +9,23 @@ import '../styles/FuelUp.scss';
 function AddFuel() {
   const [litres, setLitres] = useState("");
   const [cost, setCost] = useState("");
+  const [selectedCarId, setSelectedCarId] = useState("");
 
-  const carRef = firestore.collection('fuel')
+  const fuelRef = firestore.collection('fuel')
 
   const handleSubmit = (event) => {
     event.preventDefault();
     try {
-      carRef.add({
+      fuelRef.add({
         litres,
         cost,
+        carId: selectedCarId, // include selected car id in the service document
+
       });
       setLitres("");
       setCost("");
+      setSelectedCarId(""); // reset selected car id to an empty string
+
 
     } catch (error) {
       console.error("Error adding document: ", error);
@@ -47,6 +53,10 @@ function AddFuel() {
             type="text"
             value={cost}
             onChange={(e) => setCost(e.target.value)} />
+        </label>
+        <label>
+          Select a car:
+          <CarDropdown setSelectedCarId={setSelectedCarId} />
         </label>
        
         <button type="submit">Add FuelUp</button>
