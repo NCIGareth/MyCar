@@ -1,37 +1,38 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import '../styles/Navbar.scss'
 import AuthDetails from "./Auth";
 
 
-export const Navbar = () => {
+const Navbar = () => {
   return (
-    <div className='Navbar'>
+    <nav className='Navbar'>
         <div className='logo'>
-            MyCar
+            <Link to="/">MyCar</Link>
         </div>
-        <nav className='item'>
-            <ul className='ul'>
-                <li>
-                    <Link to='/'>Home</Link>
-                </li>
-                <li>
-                    <Link to='/addCar'>Add Car</Link>
-                </li>
-                <li>
-                    <Link to='/addFuel'>Fuel Up</Link>
-                </li>
-                <li>
-                    <Link to='/AddService'>Service</Link>
-                </li>
-                <li>
-                    <AuthDetails/>
-                </li>
-            </ul>
-            </nav>
+        <ul className='ul'>
+            <li>
+                <NavLink exact to='/' activeClassName="active">Home</NavLink>
+            </li>
+            <li>
+                <NavLink to='/addCar' activeClassName="active">Add Car</NavLink>
+            </li>
+            <li>
+                <NavLink to='/addFuel' activeClassName="active">Fuel Up</NavLink>
+            </li>
+            <li>
+                <NavLink to='/AddService' activeClassName="active">Service</NavLink>
+            </li>
 
+            <li>
+                <NavLink to='/Dashboard' activeClassName="active">Dashboard</NavLink>
+            </li>
 
-    </div>
+            <li>
+                <AuthDetails/>
+            </li>
+        </ul>
+    </nav>
   )
 }
 

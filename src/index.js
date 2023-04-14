@@ -4,6 +4,8 @@ import App from './App';
 import AddCar from './components/AddCar';
 import FuelUp from './components/FuelUp';
 import AddService from './components/AddService';
+import Dashboard from './components/Dashboard';
+
 import{BrowserRouter as Router, Routes,Route} from 'react-router-dom' ;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -15,6 +17,8 @@ root.render(
       <Route path='/AddCar' element={<AddCar/>}/>
       <Route path='/AddFuel' element={<FuelUp/>}/>
       <Route path='/AddService' element={<AddService/>}/>
+      <Route path='/Dashboard' element={<Dashboard/>}/>
+
 
 
 

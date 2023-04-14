@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { firestore } from "./firebaseConfig";
+import { auth, firestore } from "./firebaseConfig";
 import Navbar from "./Navbar";
 import CarDropdown from "./CarDropdown";
 import '../styles/AddService.scss';
@@ -12,7 +12,7 @@ function AddService() {
   const [selectedCarId, setSelectedCarId] = useState("");
 
 
-  const serviceRef = firestore.collection('Service')
+  const serviceRef = firestore.collection('service')
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -57,7 +57,10 @@ function AddService() {
         
         <label>
           Select a car:
-          <CarDropdown setSelectedCarId={setSelectedCarId} />
+          <CarDropdown
+            userId={auth.currentUser.uid}
+            setSelectedCarId={setSelectedCarId}
+          />
         </label>
 
         <button type="submit">Add Service</button>

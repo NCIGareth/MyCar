@@ -18,6 +18,12 @@ function CarDropdown({ userId, setSelectedCarId }) {
     return unsubscribe;
   }, [userId]); // Re-run effect whenever userId changes
 
+  useEffect(() => {
+    if (cars.length === 1) {
+      setSelectedCarId(cars[0].id);
+    }
+  }, [cars, setSelectedCarId]);
+
   const handleCarSelect = (event) => {
     const selectedCarId = event.target.value;
     setSelectedCarId(selectedCarId);
@@ -33,7 +39,5 @@ function CarDropdown({ userId, setSelectedCarId }) {
     </select>
   );
 }
-
-
 
 export default CarDropdown;

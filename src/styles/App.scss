@@ -13,7 +13,37 @@ body {
     background-repeat: no-repeat;
     width: 100%;
     height: 100%;
-    color: antiquewhite;
+    color: white; /* darker text color */
+}
+
+input,
+button {
+    font-size: 18px; /* increase font size */
+    background-color: #fff; /* white background */
+    color: #333; /* darker text color */
+}
+
+.sign-in-container,
+.sign-up-container {
+    padding: 20px;
+}
+
+button {
+    transition: all 0.3s ease; /* add transition effect */
+    border: 1px solid #ccc; /* gray border */
 
 
+}
+
+button:hover {
+    transform: scale(1.1); /* enlarge button on hover */
+    background-color: #333; /* dark background on hover */
+    color: #fff; /* white text on hover */
+}
+
+@media only screen and (max-width: 600px) {
+    input,
+    button {
+        font-size: 16px; /* smaller font size on small screens */
+    }
 }
