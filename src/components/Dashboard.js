@@ -58,7 +58,6 @@ function Dashboard() {
           <tr>
             <th>Description</th>
             <th>Cost</th>
-            <th>Car</th>
           </tr>
         </thead>
         <tbody>
@@ -66,7 +65,6 @@ function Dashboard() {
             <tr key={service.id}>
               <td>{service.description}</td>
               <td>{service.cost}</td>
-              <td>{service.carId}</td>
             </tr>
           ))}
         </tbody>
@@ -78,7 +76,9 @@ function Dashboard() {
           <tr>
             <th>Cost</th>
             <th>Liters</th>
-            <th>Car ID</th>
+            <th>Kilometer's Driven</th>
+            <th>Fuel Economy L/100KM</th>
+
           </tr>
         </thead>
         <tbody>
@@ -86,7 +86,9 @@ function Dashboard() {
             <tr key={fuel.id}>
               <td>{fuel.cost}</td>
               <td>{fuel.litres}</td>
-              <td>{fuel.carId}</td>
+              <td>{fuel.kilometersDriven}</td>
+              <td>{fuel.fuelEconomy}</td>
+
             </tr>
           ))}
         </tbody>

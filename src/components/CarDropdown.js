@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { auth, firestore } from "./firebaseConfig";
+import "../styles/CarDropdown.scss";
 
 function CarDropdown({ userId, setSelectedCarId }) {
   const [cars, setCars] = useState([]);
