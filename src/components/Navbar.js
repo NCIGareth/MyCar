@@ -1,39 +1,44 @@
-import React from 'react'
+import { useRef } from "react";
 import { Link, NavLink } from 'react-router-dom'
 import '../styles/Navbar.scss'
 import AuthDetails from "./Auth";
+import { FaBars, FaTimes } from "react-icons/fa"
 
 
-const Navbar = () => {
+function Navbar() {
+	const navRef = useRef();
+
+	const showNavbar = () => {
+		navRef.current.classList.toggle(
+			"responsive_nav"
+		);
+	};
+
+
   return (
-    <nav className='Navbar'>
-        <div className='logo'>
+<header>
+			<h3>MyCar</h3>
+			<nav ref={navRef}>
             <Link to="/">MyCar</Link>
-        </div>
-        <ul className='ul'>
-            <li>
-                <NavLink exact to='/' activeClassName="active">Home</NavLink>
-            </li>
-            <li>
-                <NavLink to='/addCar' activeClassName="active">Add Car</NavLink>
-            </li>
-            <li>
-                <NavLink to='/addFuel' activeClassName="active">Fuel Up</NavLink>
-            </li>
-            <li>
-                <NavLink to='/AddService' activeClassName="active">Service</NavLink>
-            </li>
+            <NavLink to='/addCar' >Add Car</NavLink>
+            <NavLink to='/addFuel' >Fuel Up</NavLink>
+            <NavLink to='/AddService' >Service</NavLink>
+            <NavLink to='/Dashboard' >Dashboard</NavLink>
 
-            <li>
-                <NavLink to='/Dashboard' activeClassName="active">Dashboard</NavLink>
-            </li>
-
-            <li>
-                <AuthDetails/>
-            </li>
-        </ul>
-    </nav>
-  )
+            <AuthDetails/>
+				<button
+					className="nav-btn nav-close-btn"
+					onClick={showNavbar}>
+					<FaTimes />
+				</button>
+			</nav>
+			<button
+				className="nav-btn"
+				onClick={showNavbar}>
+				<FaBars />
+			</button>
+		</header>
+	);
 }
 
 export default Navbar;
