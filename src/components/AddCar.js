@@ -8,9 +8,9 @@ import '../styles/AddCar.scss'
 function AddCar() {
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
-  const [year, setYear] = useState("");
-  const [fuelType, setFuelType] = useState("");
-  const [engine, setEngine] = useState("");
+  const [year, setYear] = useState("<2003");
+  const [fuelType, setFuelType] = useState("petrol");
+  const [engine, setEngine] = useState("0.9-1.2");
 
   const carRef = firestore.collection('cars')
 
@@ -58,28 +58,40 @@ function AddCar() {
             onChange={(e) => setModel(e.target.value)} />
         </label>
         <br />
+    
         <label>
-          Year:
-          <input
-            type="text"
-            value={year}
-            onChange={(e) => setYear(e.target.value)} />
+        Year:
+            <select value={year} onChange={(e) => setYear(e.target.value)}>
+            <option value="<2003">before 2003</option>
+            <option value="2003-2008">2003-2008</option>
+            <option value="2009-2014">2009-2014</option>
+            <option value="2014-2019">2014-2019</option>
+            <option value="2019>">after 2019</option>
+
+          </select>
         </label>
         <br />
+
         <label>
           Fuel Type:
-          <input
-            type="text"
-            value={fuelType}
-            onChange={(e) => setFuelType(e.target.value)} />
+            <select value={fuelType} onChange={(e) => setFuelType(e.target.value)}>
+            <option value="petrol">Petrol</option>
+            <option value="diesel">Diesel</option>
+            <option value="hybrid">Hybrid</option>
+          </select>
         </label>
-        <br />
+
+        <br />     
         <label>
-          Engine:
-          <input
-            type="text"
-            value={engine}
-            onChange={(e) => setEngine(e.target.value)} />
+        Engine:
+            <select value={engine} onChange={(e) => setEngine(e.target.value)}>
+            <option value="0.9-1.2">0.9-1.2</option>
+            <option value="1.3-1.6">1.3-1.6</option>
+            <option value="1.7-1.9">1.7-1.9</option>
+            <option value="1.8-2.1">1.8-2.1</option>
+            <option value="2.2-2.5">1.2-2.5</option>
+            <option value="2.5+">2.5+</option>
+          </select>
         </label>
         <br />
         <button type="submit">Add Car</button>

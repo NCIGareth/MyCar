@@ -30,14 +30,41 @@ table {
   }
   
   table tbody td {
+    background-color: light-grey;
     border-top: 1px solid gray;
     padding: 5px 10px;
     vertical-align: top;
+    text-align: center;
   }
   
   table tbody tr:nth-child(2n) {
     background-color: #fff;
   }
+
+  button {
+    transition: all 0.3s ease; /* add transition effect */
+    border: 1px solid #ccc; /* gray border */
+   
+    background-color: lightcoral;
+    color: #333;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-bottom: 30px;
+
+}
+button:hover {
+    transform: scale(1.1); /* enlarge button on hover */
+    background-color: #333; /* dark background on hover */
+    color: #fff; /* white text on hover */
+}
+
+h1, h2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
   
   @media only screen and (max-width: 600px) {
     input[type="text"],

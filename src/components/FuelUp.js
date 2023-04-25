@@ -6,7 +6,7 @@ import '../styles/FuelUp.scss';
 
 function AddFuel() {
   const [litres, setLitres] = useState("");
-  const [cost, setCost] = useState("");
+  const [cost, setCost] = useState("1.60");
   const [selectedCarId, setSelectedCarId] = useState("");
   const [kilometersDriven, setKilometersDriven] = useState("");
   const [fuelEconomy, setFuelEconomy] = useState("");
@@ -51,6 +51,26 @@ function AddFuel() {
       <Navbar />
 
       <form onSubmit={handleSubmit}>
+      <label>
+          Select a car:
+          <CarDropdown
+            userId={auth.currentUser.uid}
+            setSelectedCarId={setSelectedCarId}
+          />
+        </label>
+        <br />
+      <label>
+          Kilometers driven:
+          <input
+            type="text"
+            value={kilometersDriven}
+            onChange={(e) => {
+              setKilometersDriven(e.target.value);
+              calculateFuelEconomy();
+            }}
+          />
+        </label>
+        <br />
         <label>
           Litres:
           <input
@@ -75,32 +95,13 @@ function AddFuel() {
           />
         </label>
         <br />
-        <label>
-          Kilometers driven:
-          <input
-            type="text"
-            value={kilometersDriven}
-            onChange={(e) => {
-              setKilometersDriven(e.target.value);
-              calculateFuelEconomy();
-            }}
-          />
-        </label>
+        <button type="submit">Add FuelUp</button>
         <br />
         <label>
           Fuel Economy:
           <input type="text" value={fuelEconomy} readOnly />
         </label>
-        <br />
-        <label>
-          Select a car:
-          <CarDropdown
-            userId={auth.currentUser.uid}
-            setSelectedCarId={setSelectedCarId}
-          />
-        </label>
-        <br />
-        <button type="submit">Add FuelUp</button>
+       
       </form>
     </div>
   );
