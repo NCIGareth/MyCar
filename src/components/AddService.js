@@ -13,31 +13,63 @@ function AddService() {
   const [cost, setCost] = useState("");
   const [selectedCarId, setSelectedCarId] = useState("");
   const [startDate, setStartDate] = useState(new Date());
-
-
+  const [errors, setErrors] = useState({});
 
   const serviceRef = firestore.collection('service')
 
-  const handleSubmit = (event) => {
+  const validateFields = () => {
+    let errors = {};
+
+    if (!description) {
+      errors.description = "Please enter a description.";
+    }
+
+    if (!cost) {
+      errors.cost = "Please enter a cost.";
+    } else if (!/^\d+(\.\d{1,2})?$/.test(cost)) {
+      errors.cost = "Please enter a valid cost.";
+    }
+
+    if (!selectedCarId) {
+      errors.selectedCarId = "Please select a car.";
+    }
+
+    return errors;
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const errors = validateFields();
+
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
+
     try {
-      serviceRef.add({
+      // Add new service document to Firestore
+      const docRef = await serviceRef.add({
         description,
         cost,
         carId: selectedCarId,
-        startDate, // include selected car id in the service document
+        startDate,
       });
+      console.log("Document written with ID: ", docRef.id);
+
+      // Reset form fields and clear errors
       setDescription("");
       setCost("");
-      setSelectedCarId(""); // reset selected car id to an empty string
-  
+      setSelectedCarId("");
+      setErrors({});
+
+      // Display success message
+      alert("Service added successfully!");
     } catch (error) {
       console.error("Error adding document: ", error);
+      alert(error.message);
     }
   };
-  
-
-
 
   return (
     <div className="AddFuel-Container">
@@ -45,7 +77,7 @@ function AddService() {
 
       <form onSubmit={handleSubmit}>
         <label>Date:
-        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
         </label>
         <br />
         <label>
@@ -54,6 +86,7 @@ function AddService() {
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)} />
+          {errors.description && <div className="error">{errors.description}</div>}
         </label>
         <br />
         <label>
@@ -62,15 +95,16 @@ function AddService() {
             type="text"
             value={cost}
             onChange={(e) => setCost(e.target.value)} />
+          {errors.cost && <div className="error">{errors.cost}</div>}
         </label>
         <br />
-        
         <label>
           Select a car:
           <CarDropdown
             userId={auth.currentUser.uid}
             setSelectedCarId={setSelectedCarId}
           />
+          {errors.selectedCarId && <div className="error">{errors.selectedCarId}</div>}
         </label>
 
         <button type="submit">Add Service</button>
@@ -79,5 +113,6 @@ function AddService() {
 
   );
 }
+
 
 export default AddService;

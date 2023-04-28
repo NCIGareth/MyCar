@@ -9,37 +9,52 @@ function Dashboard() {
   const [fuel, setFuel] = useState([]);
   const [car, setCar] = useState([]);
   const [selectedCarId, setSelectedCarId] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const unsubscribeService = firestore
       .collection("service")
       .where("carId", "==", selectedCarId)
-      .onSnapshot((snapshot) => {
-        const servicesData = [];
-        snapshot.forEach((doc) =>
-          servicesData.push({ ...doc.data(), id: doc.id })
-        );
-        setServices(servicesData);
-      });
+      .onSnapshot(
+        (snapshot) => {
+          const servicesData = [];
+          snapshot.forEach((doc) =>
+            servicesData.push({ ...doc.data(), id: doc.id })
+          );
+          setServices(servicesData);
+        },
+        (error) => {
+          setError(error);
+        }
+      );
 
     const unsubscribeFuel = firestore
       .collection("fuel")
       .where("carId", "==", selectedCarId)
-      .onSnapshot((snapshot) => {
-        const fuelData = [];
-        snapshot.forEach((doc) => fuelData.push({ ...doc.data(), id: doc.id }));
-        setFuel(fuelData);
-      });
+      .onSnapshot(
+        (snapshot) => {
+          const fuelData = [];
+          snapshot.forEach((doc) => fuelData.push({ ...doc.data(), id: doc.id }));
+          setFuel(fuelData);
+        },
+        (error) => {
+          setError(error);
+        }
+      );
 
     const unsubscribeCar = firestore
       .collection("cars")
       .where("user", "==", auth.currentUser.uid) // Filter cars by user ID
-      .onSnapshot((snapshot) => {
-        const carData = [];
-        snapshot.forEach((doc) => carData.push({ ...doc.data(), id: doc.id }));
-        setCar(carData);
-      });
-
+      .onSnapshot(
+        (snapshot) => {
+          const carData = [];
+          snapshot.forEach((doc) => carData.push({ ...doc.data(), id: doc.id }));
+          setCar(carData);
+        },
+        (error) => {
+          setError(error);
+        }
+      );
 
     return () => {
       unsubscribeService();
@@ -48,17 +63,27 @@ function Dashboard() {
     };
   }, [selectedCarId]);
 
-  const handleDeleteCar = (carId) => {
-    firestore.collection("cars").doc(carId).delete();
-  };
-  
-  const handleDeleteFuel = (fuelId) => {
-    firestore.collection("fuel").doc(fuelId).delete();
+
+  const handleDelete = (collectionName, documentId) => {
+    firestore
+      .collection(collectionName)
+      .doc(documentId)
+      .delete()
+      .catch((error) => {
+        setError(error);
+      });
   };
 
   const handleDeleteService = (serviceId) => {
-    firestore.collection("service").doc(serviceId).delete();
+    handleDelete("service", serviceId);
   };
+  const handleDeleteCar = (carId) => {
+    handleDelete("cars", carId);
+  };
+  const handleDeleteFuel = (fuelId) => {
+    handleDelete("fuel", fuelId);
+  };
+
 
   const totalServiceCost = services.reduce(
     (acc, { cost }) => acc + Number(cost),
@@ -68,7 +93,7 @@ function Dashboard() {
     (acc, { fuelEconomy }) => acc + Number(fuelEconomy),
     0
   );
-  const averageFuelEconomy = totalFuelEconomy / fuel.length; 
+  const averageFuelEconomy = totalFuelEconomy / fuel.length;
 
   return (
     <div>
@@ -78,8 +103,11 @@ function Dashboard() {
         userId={auth.currentUser.uid}
         setSelectedCarId={setSelectedCarId}
       />
-  <p>Total service cost: € {Number(totalServiceCost).toFixed(2)}</p>
-  <p>Average fuel economy: {averageFuelEconomy.toFixed(2)}L/100km</p>
+      {error && (
+        <p className="error-message">An error occurred: {error.message}</p>
+      )}
+      <p>Total service cost: € {Number(totalServiceCost).toFixed(2)}</p>
+      <p>Average fuel economy: {averageFuelEconomy.toFixed(2)}L/100km</p>
       <h2>Service Records</h2>
       <table>
         <thead>
