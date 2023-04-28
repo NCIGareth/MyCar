@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { auth, firestore } from "./firebaseConfig";
 import Navbar from "./Navbar";
 import CarDropdown from "./CarDropdown";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import '../styles/AddService.scss';
 
 
@@ -10,6 +12,8 @@ function AddService() {
   const [description, setDescription] = useState("");
   const [cost, setCost] = useState("");
   const [selectedCarId, setSelectedCarId] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+
 
 
   const serviceRef = firestore.collection('service')
@@ -20,7 +24,8 @@ function AddService() {
       serviceRef.add({
         description,
         cost,
-        carId: selectedCarId, // include selected car id in the service document
+        carId: selectedCarId,
+        startDate, // include selected car id in the service document
       });
       setDescription("");
       setCost("");
@@ -39,6 +44,10 @@ function AddService() {
       <Navbar />
 
       <form onSubmit={handleSubmit}>
+        <label>Date:
+        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+        </label>
+        <br />
         <label>
           Description:
           <input
@@ -54,6 +63,7 @@ function AddService() {
             value={cost}
             onChange={(e) => setCost(e.target.value)} />
         </label>
+        <br />
         
         <label>
           Select a car:

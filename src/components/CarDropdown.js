@@ -15,6 +15,7 @@ function CarDropdown({ userId, setSelectedCarId }) {
           ...doc.data(),
         }));
         setCars(carsData);
+        
       });
     return unsubscribe;
   }, [userId]); // Re-run effect whenever userId changes
@@ -26,17 +27,27 @@ function CarDropdown({ userId, setSelectedCarId }) {
   }, [cars, setSelectedCarId]);
 
   const handleCarSelect = (event) => {
+    console.log(event.target.value)
     const selectedCarId = event.target.value;
-    setSelectedCarId(selectedCarId);
+
+
+   setSelectedCarId(selectedCarId);
+   
+    console.log(selectedCarId)
   };
+
+  
 
   return (
     <select onChange={handleCarSelect}>
+      <option value="">Select a Car</option>
       {cars.map((car) => (
         <option key={car.id} value={car.id}>
           {car.make} {car.model} ({car.year})
         </option>
+        
       ))}
+
     </select>
   );
 }

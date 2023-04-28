@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import { auth, firestore } from "./firebaseConfig";
 import Navbar from "./Navbar";
 import CarDropdown from "./CarDropdown";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import '../styles/FuelUp.scss';
 
-function AddFuel() {
+function AddFuel({cars}) {
   const [litres, setLitres] = useState("");
   const [cost, setCost] = useState("1.60");
   const [selectedCarId, setSelectedCarId] = useState("");
   const [kilometersDriven, setKilometersDriven] = useState("");
   const [fuelEconomy, setFuelEconomy] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+
 
   const fuelRef = firestore.collection('fuel')
 
@@ -29,12 +33,17 @@ function AddFuel() {
   const handleSubmit = (event) => {
     event.preventDefault();
     try {
+      if (selectedCarId.length ===0){
+        selectedCarId(cars[0].id);
+  
+      }
       fuelRef.add({
         litres,
         cost,
         carId: selectedCarId,
         fuelEconomy,
         kilometersDriven,
+        startDate,
       });
       setLitres("");
       setCost("");
@@ -51,6 +60,19 @@ function AddFuel() {
       <Navbar />
 
       <form onSubmit={handleSubmit}>
+      <label> Select a date
+      <DatePicker 
+      selected={startDate} 
+      onChange={(date) => setStartDate(date)}
+      dateFormat='dd/MM/yyyy'
+      filterDate={date => date.getDay() !== 6 && date.getDay() !== 0}
+      isClearable
+      showYearDropdown
+      scrollableMonthYearDropdown
+      
+      />
+      </label>
+      <br />
       <label>
           Select a car:
           <CarDropdown
@@ -98,7 +120,7 @@ function AddFuel() {
         <button type="submit">Add FuelUp</button>
         <br />
         <label>
-          Fuel Economy:
+          Fuel Economy (Liters per 100KM):
           <input type="text" value={fuelEconomy} readOnly />
         </label>
        

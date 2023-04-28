@@ -8,7 +8,7 @@ function Dashboard() {
   const [services, setServices] = useState([]);
   const [fuel, setFuel] = useState([]);
   const [car, setCar] = useState([]);
-  const [selectedCarId, setSelectedCarId] = useState("");
+  const [selectedCarId, setSelectedCarId] = useState([]);
 
   useEffect(() => {
     const unsubscribeService = firestore
@@ -60,11 +60,15 @@ function Dashboard() {
     firestore.collection("service").doc(serviceId).delete();
   };
 
-  const totalServiceCost = services.reduce((acc, curr) => acc + curr.cost, 0);
-
-  const fuelEconomies = fuel.map((f) => f.fuelEconomy);
-  const averageFuelEconomy =
-    fuelEconomies.reduce((acc, curr) => acc + curr, 0) / fuelEconomies.length;
+  const totalServiceCost = services.reduce(
+    (acc, { cost }) => acc + Number(cost),
+    0
+  );
+  const totalFuelEconomy = fuel.reduce(
+    (acc, { fuelEconomy }) => acc + Number(fuelEconomy),
+    0
+  );
+  const averageFuelEconomy = totalFuelEconomy / fuel.length; 
 
   return (
     <div>
@@ -74,12 +78,15 @@ function Dashboard() {
         userId={auth.currentUser.uid}
         setSelectedCarId={setSelectedCarId}
       />
-      <h2>Services</h2>
+  <p>Total service cost: € {Number(totalServiceCost).toFixed(2)}</p>
+  <p>Average fuel economy: {averageFuelEconomy.toFixed(2)}L/100km</p>
+      <h2>Service Records</h2>
       <table>
         <thead>
           <tr>
             <th>Description</th>
             <th>Cost</th>
+            <th>Date</th>
             <th>Actions</th>
 
           </tr>
@@ -87,9 +94,13 @@ function Dashboard() {
         <tbody>
 
           {services.map((service) => (
+            
             <tr key={service.id}>
               <td>{service.description}</td>
               <td>{service.cost}</td>
+              <td>{service.startDate && service.startDate.toDate().toLocaleDateString()}</td>
+
+
               <td>
         <button onClick={() => handleDeleteService(service.id)}>Delete</button>
       </td>
@@ -98,7 +109,7 @@ function Dashboard() {
         </tbody>
       </table>
 
-      <h2>Fuel</h2>
+      <h2>Fuel Records</h2>
       <table>
         <thead>
           <tr>
@@ -106,6 +117,7 @@ function Dashboard() {
             <th>Liters</th>
             <th>Kilometer's Driven</th>
             <th>Fuel Economy L/100KM</th>
+            <th>Date</th>
             <th>Actions</th>
 
 
@@ -118,6 +130,8 @@ function Dashboard() {
               <td>{fuel.litres}</td>
               <td>{fuel.kilometersDriven}</td>
               <td>{fuel.fuelEconomy}</td>
+              <td>{fuel.startDate && fuel.startDate.toDate().toLocaleDateString()}</td>
+
               <td>
               <button onClick={() => handleDeleteFuel(fuel.id)}>Delete</button>
       </td>
@@ -127,7 +141,7 @@ function Dashboard() {
         </tbody>
       </table>
 
-      <h2>Car</h2>
+      <h2>Car's</h2>
       <table>
         <thead>
           <tr>
@@ -152,8 +166,10 @@ function Dashboard() {
         </tbody>
       </table>
       <div>
-  <p>Total service cost: {totalServiceCost}</p>
-  <p>Average fuel economy: {averageFuelEconomy}</p>
+      <div>
+
+</div>
+
 </div>
 
     </div>
