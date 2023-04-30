@@ -1,4 +1,8 @@
 table {
+  padding: 20px;
+  margin: 20px;
+  animation: fadeIn 1s;
+
     color: #333;
     background-color: #fff;
     border-color: #333;
@@ -30,7 +34,6 @@ table {
   }
   
   table tbody td {
-    background-color: light-grey;
     border-top: 1px solid gray;
     padding: 5px 10px;
     vertical-align: top;
@@ -45,8 +48,9 @@ table {
     transition: all 0.3s ease; /* add transition effect */
     border: 1px solid #ccc; /* gray border */
    
-    background-color: lightcoral;
-    color: #333;
+    background-color: #27ae60;
+    color: #fff;
+    border-color: #27ae60;
     border-radius: 10px;
     font-weight: bold;
     font-size: 18px;
@@ -57,13 +61,32 @@ table {
 }
 button:hover {
     transform: scale(1.1); /* enlarge button on hover */
-    background-color: #333; /* dark background on hover */
-    color: #fff; /* white text on hover */
+    background-color: #2ecc71;
+    border-color: #2ecc71;
+}
+
+input[type="date"] {
+  background-image: url("https://cdn3.iconfinder.com/data/icons/calendar-and-time/100/Calendar_and_Time_12-512.png");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 20px 20px;
+  padding-right: 30px;
 }
 
 h1, h2 {
   margin-top: 10px;
   margin-bottom: 10px;
+  font-family: 'Open Sans', sans-serif;
+
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
   
   @media only screen and (max-width: 600px) {

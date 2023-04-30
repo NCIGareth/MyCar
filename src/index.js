@@ -5,6 +5,8 @@ import AddCar from './components/AddCar';
 import FuelUp from './components/FuelUp';
 import AddService from './components/AddService';
 import Dashboard from './components/Dashboard';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
 
 import{BrowserRouter as Router, Routes,Route} from 'react-router-dom' ;
 
@@ -24,8 +26,11 @@ root.render(
 
     </Routes>
   </Router>
+  
  
 );
+serviceWorkerRegistration.register();
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import { auth, firestore } from "./firebaseConfig";
 import "../styles/Dashboard.scss";
 import CarDropdown from "./CarDropdown";
+//import FuelChart from "./FuelChart";
 
 function Dashboard() {
   const [services, setServices] = useState([]);
@@ -136,6 +137,12 @@ function Dashboard() {
           ))}
         </tbody>
       </table>
+
+     {/* <FuelChart
+      carId={selectedCarId}
+      setSelectedCarId={setSelectedCarId}
+          /> */}
+    
 
       <h2>Fuel Records</h2>
       <table>
