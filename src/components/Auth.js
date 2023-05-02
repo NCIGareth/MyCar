@@ -4,14 +4,21 @@ import { auth } from "./firebaseConfig";
 
 const AuthDetails = () => {
   const [authUser, setAuthUser] = useState(null);
+  const [authError, setAuthError] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
       if (user) {
         setAuthUser(user);
+        setShowPopup(true);
       } else {
         setAuthUser(null);
+        setShowPopup(true);
       }
+    }, (error) => {
+      setAuthError(error);
+      setShowPopup(false);
     });
 
     return () => {
@@ -23,8 +30,11 @@ const AuthDetails = () => {
     signOut(auth)
       .then(() => {
         console.log("sign out successful");
+        setShowPopup(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setAuthError(error.message);
+      });
   };
 
   return (
@@ -36,10 +46,21 @@ const AuthDetails = () => {
         </>
       ) : (
         <p>Signed Out</p>
-        
+      )}
+      {authError && <p>{authError}</p>}
+      {showPopup && (
+        <div>
+          {authUser ? (
+            <p>Signed in successfully!</p>
+          ) : (
+            <p>Signed out successfully!</p>
+          )}
+          <button onClick={() => setShowPopup(false)}>Close</button>
+        </div>
       )}
     </div>
   );
 };
+
 
 export default AuthDetails;

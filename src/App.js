@@ -1,16 +1,16 @@
 import React from "react";
 import Navbar from "./components/Navbar"
 import "./styles/App.scss";
-import SignIn from "./components/Authentication/SignIn";
-import SignUp from "./components/Authentication/SignUp";
+
+import SignInSignUp from "./components/Authentication/SignInSignUp";
 
 
 function App() {
   return (
     <div className="App">
       <Navbar/>
-      <SignIn/>
-      <SignUp/>
+      <SignInSignUp/>
+      
     </div>
 
   );

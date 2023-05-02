@@ -6,6 +6,7 @@ import FuelUp from './components/FuelUp';
 import AddService from './components/AddService';
 import Dashboard from './components/Dashboard';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import PrivateRoutes from './PrivateRoutes';
 
 
 import{BrowserRouter as Router, Routes,Route} from 'react-router-dom' ;
@@ -16,14 +17,12 @@ root.render(
   <Router>
     <Routes>
       <Route path='/' element={<App/>}/>
+      <Route element={<PrivateRoutes/>}>
       <Route path='/AddCar' element={<AddCar/>}/>
       <Route path='/AddFuel' element={<FuelUp/>}/>
       <Route path='/AddService' element={<AddService/>}/>
       <Route path='/Dashboard' element={<Dashboard/>}/>
-
-
-
-
+      </Route>
     </Routes>
   </Router>
   
