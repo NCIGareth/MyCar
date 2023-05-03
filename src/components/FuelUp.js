@@ -75,10 +75,13 @@ function AddFuel({cars}) {
       <br />
       <label>
           Select a car:
-          <CarDropdown
-            userId={auth.currentUser.uid}
-            setSelectedCarId={setSelectedCarId}
-          />
+          {auth.currentUser && (
+  <CarDropdown
+    userId={auth.currentUser.uid}
+    setSelectedCarId={setSelectedCarId}
+  />
+)}
+
         </label>
         <br />
       <label>

@@ -100,10 +100,13 @@ function AddService() {
         <br />
         <label>
           Select a car:
-          <CarDropdown
-            userId={auth.currentUser.uid}
-            setSelectedCarId={setSelectedCarId}
-          />
+          {auth.currentUser && (
+  <CarDropdown
+    userId={auth.currentUser.uid}
+    setSelectedCarId={setSelectedCarId}
+  />
+)}
+
           {errors.selectedCarId && <div className="error">{errors.selectedCarId}</div>}
         </label>
 

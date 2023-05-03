@@ -10,6 +10,7 @@
     "chart.js": "^4.3.0",
     "dotenv": "^16.0.3",
     "dotenv-expand": "^10.0.0",
+    "enzyme": "^3.11.0",
     "firebase": "^9.17.1",
     "firebase-admin": "^11.5.0",
     "fs": "^0.0.1-security",
@@ -48,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@cfaester/enzyme-adapter-react-18": "^0.7.0"
   }
 }
