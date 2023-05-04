@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/chart.js": "^2.9.37",
     "chart.js": "^4.3.0",
@@ -51,6 +49,9 @@
     ]
   },
   "devDependencies": {
-    "@cfaester/enzyme-adapter-react-18": "^0.7.0"
+    "@cfaester/enzyme-adapter-react-18": "^0.7.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "ts-jest": "^29.1.0"
   }
 }

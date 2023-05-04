@@ -4,21 +4,17 @@ import { auth } from "./firebaseConfig";
 
 const AuthDetails = () => {
   const [authUser, setAuthUser] = useState(null);
+  const [message, setMessage] = useState(null);
   const [authError, setAuthError] = useState(null);
-  const [showPopup, setShowPopup] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setAuthUser(user);
-        setShowPopup(true);
-      } else {
-        setAuthUser(null);
-        setShowPopup(true);
-      }
+      setAuthUser(user);
+      setMessage(null);
     }, (error) => {
-      setAuthError(error);
-      setShowPopup(false);
+      setAuthError(error.message);
+      setMessage(null);
     });
 
     return () => {
@@ -27,40 +23,38 @@ const AuthDetails = () => {
   }, []);
 
   const userSignOut = () => {
+    setIsLoading(true);
+    setMessage("Signing out...");
+    setAuthError(null);
     signOut(auth)
       .then(() => {
-        console.log("sign out successful");
-        setShowPopup(true);
+        setIsLoading(false);
+        setAuthUser(null);
+        setMessage("Signed out successfully!");
       })
       .catch((error) => {
+        setIsLoading(false);
         setAuthError(error.message);
+        setMessage(null);
       });
   };
 
   return (
     <div>
-      {authUser ? (
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : authUser ? (
         <>
-          <p>{`Signed In as ${authUser.email}`}</p>
+          <p>{`Signed in as ${authUser.email}`}</p>
           <button onClick={userSignOut}>Sign Out</button>
         </>
       ) : (
         <p>Signed Out</p>
       )}
       {authError && <p>{authError}</p>}
-      {showPopup && (
-        <div>
-          {authUser ? (
-            <p>Signed in successfully!</p>
-          ) : (
-            <p>Signed out successfully!</p>
-          )}
-          <button onClick={() => setShowPopup(false)}>Close</button>
-        </div>
-      )}
+      {message && <p>{message}</p>}
     </div>
   );
 };
-
 
 export default AuthDetails;

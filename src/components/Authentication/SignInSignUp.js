@@ -8,28 +8,40 @@ const SignInSignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isSigningUp, setIsSigningUp] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setSuccessMessage("");
+    setErrorMessage("");
 
     // Check if confirm password matches password
     if (isSigningUp && password !== confirmPassword) {
-      setSuccessMessage("");
-      alert("Confirm password does not match password.");
+      setErrorMessage("Confirm password does not match password.");
       return;
     }
+
+    // Validate email and password
+    if (!email || !password) {
+      setErrorMessage("Please enter a valid email and password.");
+      return;
+    }
+
+    setIsLoading(true);
 
     try {
       if (isSigningUp) {
         await createUserWithEmailAndPassword(auth, email, password);
-        setSuccessMessage("Successfully registered!");
+        setSuccessMessage("You've successfully registered!");
       } else {
         await signInWithEmailAndPassword(auth, email, password);
-        setSuccessMessage("Successfully signed in!");
+        setSuccessMessage("You've successfully signed in!");
       }
     } catch (error) {
-      setSuccessMessage("");
-      alert(error.message);
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -64,15 +76,21 @@ const SignInSignUp = () => {
           </>
         )}
 
-        <button type="submit">{isSigningUp ? "Sign Up" : "Sign In"}</button>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Loading..." : isSigningUp ? "Sign Up" : "Sign In"}
+        </button>
       </form>
+
+      {errorMessage && (
+        <p style={{ color: "red", fontWeight: "bold" }}>{errorMessage}</p>
+      )}
 
       {successMessage && (
         <p style={{ color: "green", fontWeight: "bold" }}>{successMessage}</p>
       )}
 
       <p>
-        {isSigningUp ? "Already have an account?" : "Don't have an account?"}{" "}
+        {isSigningUp? "Already have an account?" : "Don't have an account?"}{" "}
         <button onClick={() => setIsSigningUp(!isSigningUp)}>
           {isSigningUp ? "Sign In" : "Sign Up"}
         </button>
