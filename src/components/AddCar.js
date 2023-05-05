@@ -3,7 +3,7 @@ import { auth, firestore } from "./firebaseConfig";
 import Navbar from "./Navbar";
 import "../styles/AddCar.scss";
 
-function AddCar() {
+function AddCar({ onCarAdded }) {
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
   const [year, setYear] = useState("<2003");
@@ -11,6 +11,8 @@ function AddCar() {
   const [engine, setEngine] = useState("0.9-1.2");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [carId, setCarId] = useState("");
+
 
   const carRef = firestore.collection("cars");
 
@@ -37,6 +39,8 @@ function AddCar() {
         fuelType,
         engine,
       });
+      const carId = response.id;
+      setCarId(carId);
 
       setMake("");
       setModel("");

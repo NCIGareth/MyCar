@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import AddCar from './AddCar';
+import AddCar from '../components/AddCar';
 import '../setupTests'
 
 describe('AddCar', () => {

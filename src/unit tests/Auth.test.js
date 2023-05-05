@@ -1,10 +1,17 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom"; // import useHistory
 import React from "react";
-import AuthDetails from "./Auth";
-import { auth } from "./firebaseConfig";
+import AuthDetails from "../components/Auth";
+import '../setupTests'
 
 jest.mock("firebase/auth");
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"), // keep all the real methods
+  useNavigate: () => ({
+    to: (pathname) => ({ pathname }),
+  }),
+}));
 
 describe("AuthDetails", () => {
   beforeEach(() => {

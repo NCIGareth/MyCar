@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import AddFuel from './FuelUp';
+import AddFuel from '../components/FuelUp';
 import '../setupTests'
 
-describe('AddService', () => {
+describe('AddFuel', () => {
   
   let wrapper;
   

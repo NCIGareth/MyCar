@@ -1,12 +1,15 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { auth } from "./firebaseConfig";
+import { useNavigate } from 'react-router-dom';
+import "../styles/Auth.scss";
 
 const AuthDetails = () => {
   const [authUser, setAuthUser] = useState(null);
   const [message, setMessage] = useState(null);
   const [authError, setAuthError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
@@ -22,27 +25,28 @@ const AuthDetails = () => {
     };
   }, []);
 
-  const userSignOut = () => {
-    setIsLoading(true);
+  const userSignOut = async () => {
+    setIsSigningOut(true);
     setMessage("Signing out...");
     setAuthError(null);
-    signOut(auth)
-      .then(() => {
-        setIsLoading(false);
-        setAuthUser(null);
-        setMessage("Signed out successfully!");
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setAuthError(error.message);
-        setMessage(null);
-      });
+
+    try {
+      await signOut(auth);
+      setAuthUser(null);
+      setMessage("Signed out successfully!");
+      navigate('/');
+    } catch (error) {
+      setAuthError(error.message);
+      setMessage(null);
+    } finally {
+      setIsSigningOut(false);
+    }
   };
 
   return (
     <div>
-      {isLoading ? (
-        <p>Loading...</p>
+      {isSigningOut ? (
+        <p></p>
       ) : authUser ? (
         <>
           <p>{`Signed in as ${authUser.email}`}</p>

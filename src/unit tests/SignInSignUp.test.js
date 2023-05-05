@@ -1,5 +1,7 @@
 import { render, fireEvent, screen } from "@testing-library/react";
-import SignInSignUp from "./SignInSignUp";
+import SignInSignUp from "../components/Authentication/SignInSignUp";
+import '../setupTests'
+
 
 test("renders sign in form by default", () => { 
     render(<SignInSignUp />);

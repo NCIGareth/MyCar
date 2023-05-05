@@ -1,114 +1,112 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto, sans-serif';
+$primary-color: #333;
+$secondary-color: #fff;
 
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto, sans-serif';
 }
 
 body {
-    background-image: linear-gradient( 
+  background-image: linear-gradient( 
     rgba(255, 255, 255, 0.166),
     rgba(255, 255, 255, 0)
-    ), url('../assets/gbo.jpg');
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    height: 100%;
-    color: white; /* darker text color */
+  ), url('../assets/gbo.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  color: $secondary-color;
 }
 
 input,
 button {
-    font-size: 18px; /* increase font size */
-    background-color: #fff; /* white background */
-    color: #333; /* darker text color */
+  font-size: 18px;
+  background-color: $secondary-color;
+  color: $primary-color;
 }
 
 .sign-in-container,
 .sign-up-container {
-    padding: 20px;
-    width: 60%;
-    margin-left: 20%;
-    h1 {
-        margin-top: 10px;
-        margin-bottom: 15px;
-        text-align: center;
-        font-size: 24px;
-        font-weight: bold;
+  padding: 20px;
+  width: 60%;
+  margin-left: 20%;
 
-    }
+  h1 {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+  }
 
-    button {
-        transition: all 0.3s ease; /* add transition effect */
-        border: 1px solid #ccc; /* gray border */
-        width: 100%;
-        height: 50px;
-        background-color: lightgrey;
-        color: #333;
-        border-radius: 10px;
-        font-weight: bold;
-        font-size: 18px;
-        cursor: pointer;
-        margin-top: 15px;
-        margin-bottom: 30px;
-        font-size: 18px; /* increase font size */
-        background-color: #fff; /* white background */
-        color: #333; /* darker text color */
-    }
-    
-    button:hover {
-        transform: scale(1.1); /* enlarge button on hover */
-        background-color: #333; /* dark background on hover */
-        color: #fff; /* white text on hover */
-    }
+  button {
+    transition: all 0.3s ease;
+    border: 1px solid $primary-color;
+    width: 100%;
+    height: 50px;
+    background-color: lightgrey;
+    color: $primary-color;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-bottom: 30px;
+  }
+
+  button:hover {
+    transform: scale(1.1);
+    background-color: $primary-color;
+    color: $secondary-color;
+  }
 }
 
+form {
+  background-color: $primary-color;
+  margin-top: 10%;
+  padding: 0px 60px;
+  border-radius: 10px;
+  padding: 20px;
+  width: 60%;
+  margin-left: 20%;
 
+  h1 {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: $secondary-color;
+  }
 
-form{
-    background-color: #333;
-    margin-top: 10%;
-    padding: 0px 60px;
+  button {
+    transition: all 0.3s ease;
+    border: 1px solid $secondary-color;
+    width: 100%;
+    height: 50px;
+    background-color: lightgrey;
+    color: $secondary-color;
     border-radius: 10px;
-    padding: 20px;
-    width: 60%;
-    margin-left: 20%;
-    h1 {
-        margin-top: 10px;
-        margin-bottom: 15px;
-        text-align: center;
-        font-size: 24px;
-        font-weight: bold;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-bottom: 30px;
+  }
 
-    }
-
-    button {
-        transition: all 0.3s ease; /* add transition effect */
-        border: 1px solid #ccc; /* gray border */
-        width: 100%;
-        height: 50px;
-        background-color: lightgrey;
-        color: #333;
-        border-radius: 10px;
-        font-weight: bold;
-        font-size: 18px;
-        cursor: pointer;
-        margin-top: 15px;
-        margin-bottom: 30px;
-    
-    }
-    button:hover {
-        transform: scale(1.1); /* enlarge button on hover */
-        background-color: #333; /* dark background on hover */
-        color: #fff; /* white text on hover */
-    }
+  button:hover {
+    transform: scale(1.1);
+    background-color: $secondary-color;
+    color: $primary-color;
+  }
 }
 
 @media only screen and (max-width: 600px) {
-    input,
-    button {
-        font-size: 16px; /* smaller font size on small screens */
-    }
+  input,
+  button {
+    font-size: 16px;
+  }
 }

@@ -76,11 +76,7 @@ const SignInSignUp = () => {
           </>
         )}
 
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? "Loading..." : isSigningUp ? "Sign Up" : "Sign In"}
-        </button>
-      </form>
-
+        
       {errorMessage && (
         <p style={{ color: "red", fontWeight: "bold" }}>{errorMessage}</p>
       )}
@@ -95,6 +91,12 @@ const SignInSignUp = () => {
           {isSigningUp ? "Sign In" : "Sign Up"}
         </button>
       </p>
+
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Loading..." : isSigningUp ? "Sign Up" : "Sign In"}
+        </button>
+      </form>
+
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import AddService from './AddService';
+import AddService from '../components/AddService';
 import '../setupTests'
 
 describe('AddService', () => {

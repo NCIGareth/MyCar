@@ -6,17 +6,17 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import '../styles/AddService.scss';
 
-
-
-function AddService() {
+function AddService({ cars }) {
   const [description, setDescription] = useState("");
   const [cost, setCost] = useState("");
   const [selectedCarId, setSelectedCarId] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [errors, setErrors] = useState({});
-
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const serviceRef = firestore.collection('service')
 
+  // Validations
   const validateFields = () => {
     let errors = {};
 
@@ -37,7 +37,7 @@ function AddService() {
     return errors;
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event) => { // When submit button is clicked
     event.preventDefault();
 
     const errors = validateFields();
@@ -48,36 +48,62 @@ function AddService() {
     }
 
     try {
+
+      if (selectedCarId.length === 0) { // If there is only one car pick that one
+        selectedCarId(cars[0].id);
+
+      }
       // Add new service document to Firestore
-      const docRef = await serviceRef.add({
+      const docRef = await serviceRef.add({ // Adding Service Record to Firebase
         description,
         cost,
         carId: selectedCarId,
         startDate,
       });
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Service Added ID: ", docRef.id);
+      setErrorMessage("");
+
 
       // Reset form fields and clear errors
       setDescription("");
       setCost("");
       setSelectedCarId("");
+      setSuccessMessage("Service added successfully!");
       setErrors({});
 
       // Display success message
       alert("Service added successfully!");
+      setErrorMessage("");
+
     } catch (error) {
-      console.error("Error adding document: ", error);
+      console.error("Error adding Service: ", error);
       alert(error.message);
+      setErrorMessage(error.message);
+      setSuccessMessage("");
     }
   };
 
   return (
-    <div className="AddFuel-Container">
+    <div className="AddService-Container">
       <Navbar />
 
       <form onSubmit={handleSubmit}>
-        <label>Date:
-          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+        {errorMessage && (
+          <div className="error-message">{errorMessage}</div>
+        )}
+        {successMessage && (
+          <div className="success-message">{successMessage}</div>
+        )}
+        <label> Select a Date
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            dateFormat='dd/MM/yyyy'
+            filterDate={date => date.getDay() !== 6 && date.getDay() !== 0}
+            isClearable
+            showYearDropdown
+            scrollableMonthYearDropdown
+          />
         </label>
         <br />
         <label>
@@ -101,15 +127,13 @@ function AddService() {
         <label>
           Select a car:
           {auth.currentUser && (
-  <CarDropdown
-    userId={auth.currentUser.uid}
-    setSelectedCarId={setSelectedCarId}
-  />
-)}
-
+            <CarDropdown
+              userId={auth.currentUser.uid}
+              setSelectedCarId={setSelectedCarId}
+            />
+          )}
           {errors.selectedCarId && <div className="error">{errors.selectedCarId}</div>}
         </label>
-
         <button type="submit">Add Service</button>
       </form>
     </div>

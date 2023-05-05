@@ -1,4 +1,6 @@
-import { firestore, auth } from './firebaseConfig';
+import { firestore, auth } from '../components/firebaseConfig';
+import '../setupTests'
+
 
 describe('Firebase configuration', () => {
   it('should have initialized Firestore', () => {

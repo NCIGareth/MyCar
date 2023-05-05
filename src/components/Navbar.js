@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom'
 import '../styles/Navbar.scss'
 import AuthDetails from "./Auth";
 import { FaBars, FaTimes } from "react-icons/fa"
+import logo from '../assets/MYCar.png'
 
 
 function Navbar() {
@@ -17,7 +18,7 @@ function Navbar() {
 
   return (
 <header>
-			<h3>MyCar</h3>
+			<img src={logo} alt="MyCar" />
 			<nav ref={navRef}>
             <Link to="/">MyCar</Link>
             <NavLink to='/addCar' >Add Car</NavLink>
