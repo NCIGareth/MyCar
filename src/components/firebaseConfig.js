@@ -33,20 +33,18 @@ try {
 }
 
 const firestore = firebase.firestore();
+
 firestore.enablePersistence()
 .catch((err) => {
   if (err.code === 'failed-precondition') {
-      // Multiple tabs open, persistence can only be enabled
-      // in one tab at a a time.
-      // ...
+    alert("Error Multiple tabs open");
+    console.log("Error Multiple tabs open");
+ 
   } else if (err.code === 'unimplemented') {
-      // The current browser does not support all of the
-      // features required to enable persistence
-      // ...
+    alert("Browser not supported");
+    console.log("Error Multiple tabs open");
   }
 });
 const auth = getAuth();
-//auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-
 
 export { firestore, auth };

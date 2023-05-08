@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { auth } from "../firebaseConfig";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, } from "firebase/auth";
 
 const SignInSignUp = () => {
   const [email, setEmail] = useState("");
@@ -35,8 +35,11 @@ const SignInSignUp = () => {
         await createUserWithEmailAndPassword(auth, email, password);
         setSuccessMessage("You've successfully registered!");
       } else {
-        await signInWithEmailAndPassword(auth, email, password);
-        setSuccessMessage("You've successfully signed in!");
+        setPersistence(auth, browserLocalPersistence).then(() => {
+          return signInWithEmailAndPassword(auth, email, password);
+          })
+          setSuccessMessage("You've successfully signed in!");
+
       }
     } catch (error) {
       setErrorMessage(error.message);
