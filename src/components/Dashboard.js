@@ -90,11 +90,21 @@ function Dashboard() {
     (acc, { cost }) => acc + Number(cost),
     0
   );
+
+  const totalFuelCost = fuel.reduce(
+    (acc, { cost }) => acc + Number(cost),
+    0
+  );
   const totalFuelEconomy = fuel.reduce(
     (acc, { fuelEconomy }) => acc + Number(fuelEconomy),
     0
   );
   const averageFuelEconomy = totalFuelEconomy / fuel.length;
+
+  const averageServiceCost = totalServiceCost / services.length;
+
+  const totalspend = totalFuelCost + totalServiceCost;
+
 
   return (
     <div>
@@ -107,8 +117,34 @@ function Dashboard() {
       {error && (
         <p className="error-message">An error occurred: {error.message}</p>
       )}
-      <p>Total service cost: € {Number(totalServiceCost).toFixed(2)}</p>
-      <p>Average fuel economy: {averageFuelEconomy.toFixed(2)}L/100km</p>
+  <div className="card-container">
+  <div className="fuel-card">
+    <i className="fas fa-calculator fuel-icon"></i>
+    <h3>Total Fuel cost:</h3>
+    <p>€ {totalFuelCost.toFixed(2)}</p>
+  </div>
+  <div className="fuel-card">
+    <i className="fas fa-calculator fuel-icon"></i>
+    <h3>Average fuel economy:</h3>
+    <p>{`${averageFuelEconomy.toFixed(2)}L/100km`}</p>
+  </div>
+  <div className="fuel-card">
+    <i className="fas fa-calculator fuel-icon"></i>
+    <h3>Average service cost:</h3>
+    <p>€ {averageServiceCost.toFixed(2)}</p>
+  </div>
+  <div className="fuel-card">
+    <i className="fas fa-calculator fuel-icon"></i>
+    <h3>Total Spend:</h3>
+    <p>€ {totalspend.toFixed(2)}</p>
+  </div>
+  </div>
+
+
+
+
+
+
       <h2>Service Records</h2>
       <table>
         <thead>

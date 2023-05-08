@@ -12,6 +12,10 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
+import { NetworkFirst } from 'workbox-strategies';
+import { firestore } from './components/firebaseConfig';
+
+
 
 clientsClaim();
 
@@ -44,6 +48,20 @@ registerRoute(
     return true;
   },
   createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
+
+  
+);
+
+registerRoute(
+  // Cache Firestore requests with NetworkFirst strategy.
+  ({ url }) => url.origin === firestore.app.options.projectId + '.firebaseapp.com',
+  new NetworkFirst({
+    cacheName: 'firestore',
+    plugins: [
+      // Customize cache expiration.
+      new ExpirationPlugin({ maxAgeSeconds: 60 * 60 * 24 * 7 }), // 1 week
+    ],
+  })
 );
 
 // An example runtime caching route for requests that aren't handled by the
