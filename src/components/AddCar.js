@@ -39,8 +39,7 @@ function AddCar({ onCarAdded }) {
         fuelType,
         engine,
       });
-      const carId = response.id;
-      setCarId(carId);
+      setCarId(response.id);
 
       setMake("");
       setModel("");
@@ -49,7 +48,7 @@ function AddCar({ onCarAdded }) {
       setEngine("0.9-1.2");
       setErrorMessage("");
       setSuccessMessage("Car added successfully!");
-      console.log("Car added with ID: ", response.id);
+      console.log("Car added with ID: ", carId);
     } catch (error) {
       console.error("Error adding document: ", error);
       setErrorMessage(error.message);
