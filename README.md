@@ -1,41 +1,23 @@
 # Getting Started with MyCar
 
-## Available Scripts
-
-In the project directory, you can run:
+My Car is a progressive web application that allows motorists to manage their car-related activities such as adding new cars, fuel-ups, and services. The application is designed for car owners who want to keep track of their car's maintenance and fuel consumption.
 
 ### `cd my-car`
 
+##  Create .env
+
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Run Integration and Unit Tests:
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.
-
- PASS  src/unit tests/Auth.test.js Tests Sign Out
- PASS  src/integration tests/Signin.test.js Tests Sign In
- PASS  src/integration tests/AddingCar.test.js Tests Adding a Car to Firebase
- PASS  src/unit tests/FuelUp.test.js Test Add Fuel up renders and Inputs
- PASS  src/integration tests/ServiceDropdown.test.js Test Car Dropdown on Add Service
- PASS  src/unit tests/AddCar.test.js Tests Add Car Renders and Inputs
- PASS  src/unit tests/SignInSignUp.test.js Tests Sign In and Sign Up Fields
- PASS  src/unit tests/AddService.test.js Tests Add Service Renders and Inputs
- PASS  src/integration tests/FuelUpDropdown.test.js Tests Car Dropdown on Add Fuel Up
- PASS  src/unit tests/firebaseConfig.test.js Tests Firebase Configuration
- PASS  src/App.test.js Tests Application Renders
+Build Application 
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-### `npm run eject`
+Live Application
+https://mycar-e44f9.web.app/
 
 **Note: dotenv file required to run "my-car/.env"**
 
