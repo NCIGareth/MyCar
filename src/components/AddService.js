@@ -88,18 +88,21 @@ function AddService({ cars }) {
       <Navbar />
 
       <form onSubmit={handleSubmit}>
+      <h1>Add your Service</h1>
+        <p>View all Services and Track Spending on your Dashboard.</p>
+        <p></p>
         {errorMessage && (
-          <div className="error-message">{errorMessage}</div>
-        )}
-        {successMessage && (
-          <div className="success-message">{successMessage}</div>
-        )}
+        <p style={{ color: "red", fontWeight: "bold" }}>{errorMessage}</p>
+      )}
+
+      {successMessage && (
+        <p style={{ color: "green", fontWeight: "bold" }}>{successMessage}</p>
+      )}
         <label> Select a Date
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             dateFormat='dd/MM/yyyy'
-            filterDate={date => date.getDay() !== 6 && date.getDay() !== 0}
             isClearable
             showYearDropdown
             scrollableMonthYearDropdown
@@ -112,7 +115,7 @@ function AddService({ cars }) {
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)} />
-          {errors.description && <div className="error">{errors.description}</div>}
+          {errors.description && <p style={{ color: "red", fontWeight: "bold" }}>{errors.description}</p>}
         </label>
         <br />
         <label>
@@ -121,18 +124,18 @@ function AddService({ cars }) {
             type="text"
             value={cost}
             onChange={(e) => setCost(e.target.value)} />
-          {errors.cost && <div className="error">{errors.cost}</div>}
+          {errors.cost && <p style={{ color: "red", fontWeight: "bold" }}>{errors.cost}</p>}
         </label>
         <br />
         <label>
-          Select a car:
+          Select a Car:
           {auth.currentUser && (
             <CarDropdown
               userId={auth.currentUser.uid}
               setSelectedCarId={setSelectedCarId}
             />
           )}
-          {errors.selectedCarId && <div className="error">{errors.selectedCarId}</div>}
+          {errors.selectedCarId && <p style={{ color: "red", fontWeight: "bold" }}>{errors.selectedCarId}</p>}
         </label>
         <button type="submit">Add Service</button>
       </form>

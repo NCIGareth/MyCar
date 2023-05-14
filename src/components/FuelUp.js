@@ -8,7 +8,7 @@ import '../styles/FuelUp.scss';
 
 function AddFuel({ cars }) {
   const [litres, setLitres] = useState("");
-  const [cost, setCost] = useState("1.60");
+  const [cost, setCost] = useState("");
   const [selectedCarId, setSelectedCarId] = useState("");
   const [kilometersDriven, setKilometersDriven] = useState("");
   const [fuelEconomy, setFuelEconomy] = useState("");
@@ -37,9 +37,9 @@ function AddFuel({ cars }) {
     let errors = {};
 
     if (!litres) {
-      errors.cost = "Please enter litres.";
+      errors.litres = "Please enter litres.";
     } else if (!/^\d+(\.\d{1,2})?$/.test(litres)) {
-      errors.cost = "Please enter a valid litres.";
+      errors.litres = "Please enter a valid litres.";
     }
 
     if (!cost) {
@@ -49,9 +49,9 @@ function AddFuel({ cars }) {
     }
 
     if (!kilometersDriven) {
-      errors.cost = "Please enter a Kilometers.";
+      errors.kilometersDriven = "Please enter Kilometers Driven.";
     } else if (!/^\d+(\.\d{1,2})?$/.test(kilometersDriven)) {
-      errors.cost = "Please enter a valid kilometers Driven.";
+      errors.kilometersDriven = "Please enter a valid kilometers Driven.";
     }
 
     return errors;
@@ -111,18 +111,20 @@ function AddFuel({ cars }) {
       <Navbar />
 
       <form onSubmit={handleSubmit}>
+      <h1>Add your Fuel Up</h1>
+        <p>Fill up your Car, Reset you Trip/Odometer, Drive, Fill up, Record your Fill up here.</p>
         {errorMessage && (
-          <div className="error-message">{errorMessage}</div>
-        )}
-        {successMessage && (
-          <div className="success-message">{successMessage}</div>
-        )}
-        <label> Select a date
+        <p style={{ color: "red", fontWeight: "bold" }}>{errorMessage}</p>
+      )}
+
+      {successMessage && (
+        <p style={{ color: "green", fontWeight: "bold" }}>{successMessage}</p>
+      )}
+        <label> Select a Date
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             dateFormat='dd/MM/yyyy'
-            filterDate={date => date.getDay() !== 6 && date.getDay() !== 0}
             isClearable
             showYearDropdown
             scrollableMonthYearDropdown
@@ -130,7 +132,7 @@ function AddFuel({ cars }) {
         </label>
         <br />
         <label>
-          Select a car:
+          Select a Car:
           {auth.currentUser && (
             <CarDropdown
               userId={auth.currentUser.uid}
@@ -149,7 +151,7 @@ function AddFuel({ cars }) {
               calculateFuelEconomy();
             }}
           />
-          {errors.kilometersDriven && <div className="error">{errors.kilometersDriven}</div>}
+          {errors.kilometersDriven && <p style={{ color: "red", fontWeight: "bold" }}>{errors.kilometersDriven}</p>}
 
         </label>
         <br />
@@ -163,7 +165,7 @@ function AddFuel({ cars }) {
               calculateFuelEconomy();
             }}
           />
-          {errors.litres && <div className="error">{errors.litres}</div>}
+          {errors.litres && <p style={{ color: "red", fontWeight: "bold" }}>{errors.litres}</p>}
         </label>
         <br />
         <label>
@@ -176,11 +178,11 @@ function AddFuel({ cars }) {
               calculateFuelEconomy();
             }}
           />
-          {errors.cost && <div className="error">{errors.cost}</div>}
+          {errors.cost && <p style={{ color: "red", fontWeight: "bold" }}>{errors.cost}</p>}
 
         </label>
         <br />
-        <button type="submit">Add FuelUp</button>
+        <button type="submit">Add Fuel Up</button>
         <br />
         <label>
           Fuel Economy (Liters per 100KM):

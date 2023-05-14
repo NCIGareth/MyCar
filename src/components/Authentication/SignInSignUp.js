@@ -88,15 +88,13 @@ const SignInSignUp = () => {
         <p style={{ color: "green", fontWeight: "bold" }}>{successMessage}</p>
       )}
 
-      <p>
-        {isSigningUp? "Already have an account?" : "Don't have an account?"}{" "}
-        <button onClick={() => setIsSigningUp(!isSigningUp)}>
-          {isSigningUp ? "Sign In" : "Sign Up"}
-        </button>
-      </p>
-
         <button type="submit" disabled={isLoading}>
           {isLoading ? "Loading..." : isSigningUp ? "Sign Up" : "Sign In"}
+        </button>
+
+        {isSigningUp? "Already have an account?" : "Don't have an account?"}{" "}
+        <button onClick={() => setIsSigningUp(!isSigningUp)} style={{backgroundColor: "red", border: "1px solid red"}} >
+          {isSigningUp ? "Sign In" : "Sign Up"}
         </button>
       </form>
 

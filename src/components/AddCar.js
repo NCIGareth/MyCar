@@ -61,12 +61,17 @@ function AddCar({ onCarAdded }) {
       <Navbar />
 
       <form onSubmit={handleSubmit}>
+        <h1>Add a Car</h1>
+        <p>Add your Car to start tracking Fuel & Service Costs.</p>
+        <p></p>
         {errorMessage && (
-          <div className="error-message">{errorMessage}</div>
-        )}
-        {successMessage && (
-          <div className="success-message">{successMessage}</div>
-        )}
+        <p style={{ color: "red", fontWeight: "bold" }}>{errorMessage}</p>
+      )}
+
+      {successMessage && (
+        <p style={{ color: "green", fontWeight: "bold" }}>{successMessage}</p>
+      )}
+
         <label>
           Make:
           <input

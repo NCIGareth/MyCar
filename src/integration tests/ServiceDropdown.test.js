@@ -37,7 +37,7 @@ describe("AddService", () => {
       </Router>
     );
   
-    const dropdown = screen.getByLabelText("Select a car:");
+    const dropdown = screen.getByLabelText("Select a Car:");
   
     expect(dropdown).toBeInTheDocument();
     expect(dropdown).toBeDisabled();

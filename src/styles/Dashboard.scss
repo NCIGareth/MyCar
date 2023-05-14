@@ -5,7 +5,7 @@ $table-header-color: #ccc;
 $table-body-border-color: gray;
 $table-body-bg-color: #fff;
 $button-primary-color: #27ae60;
-$button-primary-color-hover: #2ecc71;
+$button-primary-color-hover: #cc2e2e;
 $primary-color: #007bff;
 $secondary-color: #6c757d;
 $base-font-size: 16px;
@@ -64,6 +64,8 @@ button {
   border-radius: 10px;
   font-weight: bold;
   font-size: 18px;
+  margin-left: 5px;
+  padding: 5px;
   cursor: pointer;
   margin-top: 15px;
   margin-bottom: 30px;
@@ -85,7 +87,7 @@ input[type="date"] {
 h1, h2 {
   margin-top: 10px;
   margin-bottom: 10px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roberto', sans-serif;
 }
 
 .card-container {
